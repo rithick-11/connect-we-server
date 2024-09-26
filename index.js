@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import cors from "cors"
 
 import registerRoute from "./Routes/registerRoute.js"
+import userRouter from "./Routes/userRoute.js"
 
 dotenv.config()
 
@@ -26,5 +27,6 @@ app.use(express.json())
 app.use(cors())
 
 app.use("/register", registerRoute)
+app.use("/users", userRouter)
 
 startServerAndConnectDb()
