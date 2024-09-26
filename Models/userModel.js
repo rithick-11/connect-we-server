@@ -6,9 +6,18 @@ const userShema = mongoose.Schema({
         type:String,
         unique:[true, "username already exist"],
     },
-    name:String,
-    avatorUrl:String,
-    gender:String,
+    name:{
+        type:String,
+        default:"gust user"
+    },
+    avatorUrl:{
+        type:String,
+        default:"https://cdn-icons-png.flaticon.com/512/266/266033.png"
+    },
+    gender:{
+        type:String,
+        default: "mele"
+    },
     email:{
         type:String,
         unique:[true, "email already exist"],
