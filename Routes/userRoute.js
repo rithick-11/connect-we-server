@@ -17,7 +17,7 @@ router.get("/:username", async (req, res) => {
   }
 });
 
-router.put("/update-profilo/:id", async (req, res) => {
+router.post("/update-profilo/:id", async (req, res) => {
   const { id } = req.params;
   const userData = await User.updateOne(
     { _id: id },
