@@ -10,6 +10,14 @@ const userShema = mongoose.Schema({
         type:String,
         default:"gust user"
     },
+    bio:{
+        type:String,
+        default:"all is well"
+    },
+    profession:{
+        type:String,
+        default:"none"
+    },
     avatorUrl:{
         type:String,
         default:"https://cdn-icons-png.flaticon.com/512/266/266033.png"
