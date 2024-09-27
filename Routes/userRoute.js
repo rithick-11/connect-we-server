@@ -1,6 +1,9 @@
 import { Router } from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 import User from "../Models/userModel.js";
+import { authoziation } from "../Middlewares/middlewares.js";
 
 const router = Router();
 
@@ -17,13 +20,27 @@ router.get("/:username", async (req, res) => {
   }
 });
 
-router.post("/update-profilo/:id", async (req, res) => {
-  const { id } = req.params;
+router.put("/update-profilo", authoziation, async (req, res) => {
   const userData = await User.updateOne(
-    { _id: id },
-    {...req.body}
+    { username: req.body.username },
+    { ...req.body }
   );
-  res.json({msg:"ok"});
+  res.json({ ...userData, msg: "ok" });
+});
+
+router.post("/login", async (req, res) => {
+  const { password, username } = req.body;
+  const user = await User.findOne({ username });
+  if (user === null) {
+    req.status(401);
+  } else {
+    if (await bcrypt.compare(password, user.password)) {
+      const token = await jwt.sign({ username}, "rithick");
+      res.status(202).json({ token: token, msg: "ok" });
+    }else{
+      res.status(402).json({ msg: "worng password" });
+    }
+  }
 });
 
 export default router;
