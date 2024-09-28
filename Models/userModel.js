@@ -33,8 +33,10 @@ const userShema = mongoose.Schema({
     },
     socialLink:[
         {
-            paltform:String,
-            url:String
+            name:String,
+            url:String,
+            visible:Boolean,
+            logoUrl:String
         }
     ],
     password:String,

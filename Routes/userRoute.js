@@ -35,12 +35,21 @@ router.post("/login", async (req, res) => {
     req.status(401);
   } else {
     if (await bcrypt.compare(password, user.password)) {
-      const token = await jwt.sign({ username}, "rithick");
+      const token = await jwt.sign({ username }, "rithick");
       res.status(202).json({ token: token, msg: "ok" });
-    }else{
+    } else {
       res.status(402).json({ msg: "worng password" });
     }
   }
+});
+
+router.post("/add-social-link", authoziation, async (req, res) => {
+  const { newLinkData } = req.body;
+  const response = await User.updateOne(
+    { username: req.username },
+    { $push: { socialLink: newLinkData } }
+  );
+  res.status(202).json(response);
 });
 
 export default router;
